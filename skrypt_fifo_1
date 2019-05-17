@@ -1,0 +1,20 @@
+#!/bin/bash
+
+fifo=/home/oracle/Public/Zadanie_2/fifo
+
+while :
+do
+        #zapisywanie listy plikow znajdujacych sie w katalogu "loc1" do pliku "fifo"
+        ls -r --sort=time /home/oracle/Public/Zadanie_2/L1 > $fifo
+        
+        #pobieranie nazwy pierwszego pliku z pliku "fifo" do zmiennej "pierwszy_plik" 
+        pierwszy_plik=`sed -n 1p $fifo`
+        
+        #kopiowanie pierwszego pliku z listy "fifo" do nowej lokalizacji
+        mv /home/oracle/Public/Zadanie_2/L1/$pierwszy_plik /home/oracle/Public/Zadanie_2/L2
+        
+        #usuwanie pierwszej lini z pliku "fifo" 
+        sed -i '1d' $fifo
+        echo "Przeniesiono $pierwszy_plik"      
+        sleep 10
+done
