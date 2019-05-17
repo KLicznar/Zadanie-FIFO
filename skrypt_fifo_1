@@ -4,7 +4,7 @@ fifo=/home/oracle/Public/Zadanie_2/fifo
 
 while :
 do
-        #zapisywanie listy plikow znajdujacych sie w katalogu "loc1" do pliku "fifo"
+        #zapisywanie listy plikow znajdujacych sie w katalogu "L1" do pliku "fifo"
         ls -r --sort=time /home/oracle/Public/Zadanie_2/L1 > $fifo
         
         #pobieranie nazwy pierwszego pliku z pliku "fifo" do zmiennej "pierwszy_plik" 
