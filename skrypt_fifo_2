@@ -7,7 +7,7 @@ do
         #sprawdzanie czy plik "fifo" istnieje
         if [ -f "$fifo" ]
         then
-                #Jezeli plik "fifo" nie istnieje
+                #Jezeli plik "fifo" istnieje
                 #szukanie roznicy miedzy zawartoscia pliku "fifo" a zawartoscia karalogu "L1", 
                 #nastepnie nadpisanie roznicy fo pliku "fifo" 
                 diff <(cat $fifo) <(ls -r --sort=time /home/oracle/Public/Zadanie_2/L1 )| sed -n 's/^> \(.*\)/\1/p' >> $fifo
