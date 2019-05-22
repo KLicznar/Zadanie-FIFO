@@ -1,0 +1,28 @@
+#!/bin/bash
+
+fifo=/home/oracle/Public/Zadanie_2/fifo
+
+while :
+do
+        #sprawdzanie czy plik "fifo" istnieje
+        if [ -f "$fifo" ]
+        then
+                #Jezeli plik "fifo" nie istnieje
+                #szukanie roznicy miedzy zawartoscia pliku "fifo" a zawartoscia karalogu "L1", 
+                #nastepnie nadpisanie roznicy fo pliku "fifo" 
+                diff <(cat $fifo) <(ls -r --sort=time /home/oracle/Public/Zadanie_2/L1 )| sed -n 's/^> \(.*\)/\1/p' >> $fifo
+
+        else
+                #zapisywanie całej listy plikow znajdujacych sie w katalogu "L1" do pliku "fifo" jezeli plik "fifo" nie istnieje
+                ls -r --sort=time /home/oracle/Public/Zadanie_2/L1 > $fifo
+        fi
+
+        #pobieranie nazwy pierwszego pliku z pliku "fifo" do zmiennej "pierwszy_plik" 
+        pierwszy_plik=`head -n 1 $fifo`
+        #kopiowanie pierwszego pliku z listy "fifo" do nowej lokalizacji
+        mv /home/oracle/Public/Zadanie_2/L1/$pierwszy_plik /home/oracle/Public/Zadanie_2/L2
+        #usuwanie pierwszej lini z pliku "fifo" 
+        sed -i '1d' $fifo
+        echo "Przeniesiono $pierwszy_plik"      
+        sleep 10
+done
